@@ -1,5 +1,3 @@
-
-
 import getCard
 
 result = {
@@ -11,6 +9,7 @@ def setResult(player, banker):
     result["Player"] = player
     result["Banker"] = banker
 
+# Generate third card, add to total and return total.
 def getTotal(total):
     thirdCard = getCard.randomCard()
     total += thirdCard
@@ -28,14 +27,17 @@ def baccaratHand(playerInitial, bankerInitial):
           (playerInitial == bankerInitial):
         setResult(playerInitial, bankerInitial)
         return result
+
     # Player natural
-    elif (playerInitial == 8 or playerInitial == 9) and not bankerInitial == 9:
+    elif playerInitial == 8 or playerInitial == 9:
         setResult(playerInitial, bankerInitial)
         return result
+
     # Bank natural
     elif (bankerInitial == 8 or bankerInitial == 9):
         setResult(playerInitial, bankerInitial)
         return result
+
     # 7-6 Conditions
     elif (playerInitial == 7 and bankerInitial == 6 or
           bankerInitial == 7 and playerInitial == 6):
