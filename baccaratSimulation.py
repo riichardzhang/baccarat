@@ -1,3 +1,5 @@
+# Written by Richard Zhang
+
 import runHand
 import getCard
 import getStats
@@ -15,23 +17,27 @@ result_frequency = {
 
 def generateHands(result_frequency):
     for i in range(NUMHANDS):
+        # Generate initial deal
         bank1 = getCard.randomCard()
         bank2 = getCard.randomCard()
         player1 = getCard.randomCard()
         player2 = getCard.randomCard()
 
+        # Check for pairs
         if player1 == player2:
             result_frequency["playerPair"] += 1
 
         if bank1 == bank2:
             result_frequency["bankerPair"] += 1 
         
-
+        # Store the score in variables.
         bankInitial = (getCard.cardToValue(bank1) + getCard.cardToValue(bank2)) % 10
         playerInitial = (getCard.cardToValue(player1) + getCard.cardToValue(player2)) % 10
 
+        # Determine result from tableu.
         result = runHand.baccaratHand(playerInitial, bankInitial)
         
+        # Update result_frequency.
         if result["Player"] > result["Banker"]:
             result_frequency["Player"] += 1
         elif result["Banker"] > result["Player"]:
@@ -39,7 +45,7 @@ def generateHands(result_frequency):
         elif result["Banker"] == result["Player"]:
             result_frequency["Tie"] += 1
 
-        # Bank wins on 6
+        # Bank wins on 6 condition
         if result["Banker"] == 6 and result["Banker"] > result["Player"]:
             result_frequency["Banker6"] += 1
     
